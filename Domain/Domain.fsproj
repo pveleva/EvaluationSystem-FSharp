@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="OptionTypes.fs" />
+    <Compile Include="TemplateEntities.fs" />
+    <Compile Include="AttestationEntities.fs" />
+    <Compile Include="UserInfo.fs" />
+    <Compile Include="Error.fs" />
+  </ItemGroup>
+
+</Project>
