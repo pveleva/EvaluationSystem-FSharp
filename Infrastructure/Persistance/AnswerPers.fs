@@ -13,14 +13,16 @@ let foundAnswerFunc id = query {
         exactlyOneOrDefault
     }
 
-let getAll = 
+let getAll () = 
     task {
         let! res = 
             query {
                 for answer in answers do
                 select (answer)
             } |> Seq.executeQueryAsync
-        return res |> Seq.map(fun app -> app.MapTo<Answer>())
+        let mapped = res |> Seq.map(fun app -> app.MapTo<Answer>())
+        let returnedValues = mapped |> List.ofSeq
+        return returnedValues
     }
 
 let getAnswerByIdAsync = fun id ->
@@ -57,9 +59,9 @@ let update (answer: Answer) =
             foundAnswer.AnswerText <- answer.AnswerText
             foundAnswer.IdQuestion <- answer.IdQuestion
             do! Context.SubmitUpdatesAsync()
-            return "Update successful."
+            return "Successful update."
         | None ->
-            return "The answer with the provided ID not found." 
+            return $"The answer with the provided ID {answer.Id} not found." 
     }
 
 let delete id =
@@ -68,9 +70,9 @@ let delete id =
         | Some foundAnswer ->
             foundAnswer.Delete()
             do! Context.SubmitUpdatesAsync()
-            return "Delete successful."
+            return "Successful delete."
         | None ->
-            return "The answer with the provided ID was not deleted." 
+            return $"The answer with the provided ID {id} not found." 
     }
 
 

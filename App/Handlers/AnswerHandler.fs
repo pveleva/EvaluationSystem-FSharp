@@ -8,7 +8,7 @@ open Infrastructure.Repositories.AnswerPers
 
 let getAll = fun (next: HttpFunc) (ctx: HttpContext) ->
     task {        
-        let! answers = getAll
+        let! answers = getAll()
         let res = jsonApiWrap answers
         return! json res next ctx
     }
@@ -16,14 +16,14 @@ let getAll = fun (next: HttpFunc) (ctx: HttpContext) ->
 let create = fun (next: HttpFunc) (ctx: HttpContext) ->
     task {        
         let! answer = ctx.BindJsonAsync<Answer>()
-        let newAnswer = create answer
+        let! newAnswer = create answer
         return! json (jsonApiWrap newAnswer) next ctx
     }
 
 let update = fun (next: HttpFunc) (ctx: HttpContext) ->
     task {        
         let! answer = ctx.BindJsonAsync<Answer>()
-        let newAnswer = update answer
+        let! newAnswer = update answer
         return! json (jsonApiWrap newAnswer) next ctx
     }
 
